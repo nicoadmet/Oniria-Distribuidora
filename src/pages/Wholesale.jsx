@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Whosale = () => {
+const Wholesale = () => {
   return (
     <div>Whosale</div>
   )
 }
 
-export default Whosale
+export default Wholesale

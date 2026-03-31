@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Link as ScrollLink } from 'react-scroll';
 import { useState } from "react";
 
 import { navbarLinks } from "../data/navbarLinks";
@@ -18,6 +19,22 @@ const NavBar = ({ cart, setIsCartOpen }) => {
     0
   );
 
+  const handleSearchClick = () => {
+    const catalogSection = document.getElementById("catalog");
+    
+    if (catalogSection) {
+      catalogSection.scrollIntoView({ behavior: "smooth" });
+
+      setTimeout(() => {
+        const searchInput = document.getElementById("search-input");
+        if (searchInput) {
+          searchInput.focus();
+          searchInput.value = ""; 
+        }
+      }, 300); 
+    }
+  };
+
   return (
     <>
       <nav>
@@ -31,21 +48,28 @@ const NavBar = ({ cart, setIsCartOpen }) => {
           {/* Menu */}
           <ul className="hidden md:flex items-center gap-4 text-gray-600">
             {navbarLinks.map((item) => (
-              <li key={item.id} className="relative h-16 flex items-center group">
-                <Link
-                  to={item.link}
+              <li key={item.id} className="relative h-16 flex items-center group cursor-pointer">
+                <ScrollLink
+                  to={item.link.replace("#", "")}
+                  smooth={true}
+                  duration={400}
+                  spy={true}
                   className="inline-block py-1 px-3 font-semibold"
                 >
                   {item.title}
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[3px] bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
-                </Link>
+                  <span className="absolute bottom-0 left-0 w-0 h-[3px] bg-blue-500 transition-all duration-300 group-hover:w-full"></span>                
+                </ScrollLink>
               </li>
             ))}
           </ul>
 
           {/* Icons */}
-          <div className="flex items-center gap-2">
-            <button className="text-2xl p-2 hover:bg-blue-500 hover:text-white rounded-full transition-all duration-300 cursor-pointer">
+          <div 
+            className="flex items-center gap-2"
+          >
+            <button 
+              onClick={handleSearchClick}
+              className="text-2xl p-2 hover:bg-blue-500 hover:text-white rounded-full transition-all duration-300 cursor-pointer">
               <CiSearch />
             </button>
 

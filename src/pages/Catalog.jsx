@@ -8,7 +8,7 @@ function Catalog({ cart = {}, setCart }) {
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 10;
 
-  // 1. Optimización: Memorizar las categorías para no recalcular en cada render
+
   const categories = useMemo(() => {
     return ["Todas las categorías", ...new Set(products.map((p) => p.category))];
   }, []);
@@ -32,7 +32,7 @@ function Catalog({ cart = {}, setCart }) {
     });
   };
 
-  // 2. Filtrado lógico
+  // Filtrado lógico
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name.toLowerCase().includes(search.toLowerCase());
     const matchesCategory =
@@ -40,13 +40,13 @@ function Catalog({ cart = {}, setCart }) {
     return matchesSearch && matchesCategory;
   });
 
-  // 3. Paginación
+  // Paginación
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
   const indexOfLast = currentPage * productsPerPage;
   const indexOfFirst = indexOfLast - productsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirst, indexOfLast);
 
-  // 4. Agrupación por categoría (solo de los productos visibles)
+  // Agrupación por categoría 
   const groupedProducts = currentProducts.reduce((acc, product) => {
     if (!acc[product.category]) acc[product.category] = [];
     acc[product.category].push(product);
@@ -62,6 +62,7 @@ function Catalog({ cart = {}, setCart }) {
         <div className="relative flex-1">
           <CiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
           <input
+            id="search-input"
             type="text"
             placeholder="Buscar por producto..."
             value={search}
@@ -69,7 +70,7 @@ function Catalog({ cart = {}, setCart }) {
               setSearch(e.target.value);
               setCurrentPage(1);         
             }}
-            className="w-full border border-gray-300 p-2 pl-10 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+            className="w-full border border-gray-300 p-2 pl-10 rounded focus:ring-2 focus:ring-blue-500 outline-none transition-all"
           />
         </div>
 
@@ -77,9 +78,9 @@ function Catalog({ cart = {}, setCart }) {
           value={categoryFilter}
           onChange={(e) => {
             setCategoryFilter(e.target.value); // Cambia la categoría
-            setCurrentPage(1);                 // Resetea la página aquí mismo
+            setCurrentPage(1);                 // Resetea la página 
           }}
-          className="border border-gray-300 p-2 rounded-lg bg-white outline-none focus:ring-2 focus:ring-blue-500"
+          className="border border-gray-300 p-2 rounded bg-white outline-none focus:ring-2 focus:ring-blue-500"
         >
           {categories.map((cat) => (
             <option key={cat} value={cat}>{cat}</option>
@@ -87,8 +88,9 @@ function Catalog({ cart = {}, setCart }) {
         </select>
       </div>
 
-      {/* Tabla de Productos */}
-      <div className="overflow-x-auto bg-white rounded-xl shadow-sm border border-gray-200">
+
+      {/* Tabla de Productos Desktop*/}
+      <div className="hidden sm:block overflow-x-auto bg-white rounded shadow-sm border border-gray-200">
         <table className="min-w-full leading-normal">
           <thead>
             <tr className="bg-gray-50 text-gray-600 text-sm uppercase">
@@ -96,6 +98,7 @@ function Catalog({ cart = {}, setCart }) {
               <th className="p-4 text-center font-semibold">Precio Unit.</th>
               <th className="p-4 text-center font-semibold">Cantidad</th>
               <th className="p-4 text-center font-semibold">Precio Pack</th>
+              <th className="p-4 text-center font-semibold">U. por Pack</th>
               <th className="p-4 text-center font-semibold">Cantidad</th>
             </tr>
           </thead>
@@ -103,8 +106,8 @@ function Catalog({ cart = {}, setCart }) {
             {Object.keys(groupedProducts).length > 0 ? (
               Object.keys(groupedProducts).map((category) => (
                 <Fragment key={category}>
-                  <tr className="bg-blue-50/50">
-                    <td colSpan="5" className="px-4 py-2 font-bold text-blue-700 text-xs uppercase tracking-wider">
+                  <tr className="bg-blue-50">
+                    <td colSpan="6" className="px-4 py-2 font-bold text-blue-700 text-xs uppercase tracking-wider">
                       {category}
                     </td>
                   </tr>
@@ -119,34 +122,55 @@ function Catalog({ cart = {}, setCart }) {
 
                         {/* Controles UNIT */}
                         <td className="p-4">
-                          <div className="flex items-center justify-center border rounded-lg w-24 mx-auto overflow-hidden">
+                          <div className="flex items-center justify-center mx-auto w-26 h-10 rounded bg-white shadow-md overflow-hidden border border-gray-300">
                             <button
                               onClick={() => updateQuantity(product.id, "unit", "decrease")}
                               disabled={unitQty === 0}
-                              className={`flex-1 py-1 hover:bg-gray-100 transition-colors ${unitQty === 0 ? 'text-gray-300' : 'text-red-500 font-bold'}`}
-                            >-</button>
-                            <span className="flex-1 text-center font-semibold text-sm">{unitQty}</span>
+                              className={`
+                                flex-1 py-2 font-black text-lg transition-all
+                                ${unitQty === 0 
+                                  ? 'text-blue-500 opacity-50 cursor-not-allowed' 
+                                  : 'text-blue-500 hover:bg-blue-50 active:scale-95'}
+                              `}
+                            >
+                              –
+                            </button>
+
+                            <span className="flex-1 text-center font-semibold text-sm">
+                              {unitQty}
+                            </span>
+
                             <button
                               onClick={() => updateQuantity(product.id, "unit", "increase")}
-                              className="flex-1 py-1 hover:bg-gray-100 text-green-600 font-bold transition-colors"
-                            >+</button>
+                              className="flex-1 py-2 font-black text-lg text-blue-500 hover:bg-blue-50 active:scale-95 transition-all"
+                            >
+                              +
+                            </button>
                           </div>
+
                         </td>
 
                         <td className="p-4 text-center text-gray-600 font-mono">${product.packPrice}</td>
 
+                        <td className="p-4 text-center text-gray-400 font-mono">{product.unitsPerPack}</td>
+
                         {/* Controles PACK */}
                         <td className="p-4">
-                          <div className="flex items-center justify-center border rounded-lg w-24 mx-auto overflow-hidden">
+                          <div className="flex items-center justify-center mx-auto w-26 h-10 rounded bg-white shadow-md overflow-hidden border border-gray-300">
                             <button
                               onClick={() => updateQuantity(product.id, "pack", "decrease")}
                               disabled={packQty === 0}
-                              className={`flex-1 py-1 hover:bg-gray-100 transition-colors ${packQty === 0 ? 'text-gray-300' : 'text-red-500 font-bold'}`}
+                              className={`
+                                flex-1 py-2 font-black text-lg transition-all
+                                ${unitQty === 0 
+                                  ? 'text-blue-500 opacity-50 cursor-not-allowed' 
+                                  : 'text-blue-500 hover:bg-blue-50 active:scale-95'}
+                              `}
                             >-</button>
                             <span className="flex-1 text-center font-semibold text-sm">{packQty}</span>
                             <button
                               onClick={() => updateQuantity(product.id, "pack", "increase")}
-                              className="flex-1 py-1 hover:bg-gray-100 text-green-600 font-bold transition-colors"
+                              className="flex-1 py-2 font-black text-lg text-blue-500 hover:bg-blue-50 active:scale-95 transition-all"
                             >+</button>
                           </div>
                         </td>
@@ -166,52 +190,169 @@ function Catalog({ cart = {}, setCart }) {
         </table>
       </div>
 
+
+
+      {/* Tabla de Productos Mobile */}
+      <div className="sm:hidden overflow-x-auto bg-white rounded shadow-sm border border-gray-200">
+        <table className="min-w-full leading-normal">
+          <tbody>
+            {Object.keys(groupedProducts).length > 0 ? (
+              Object.keys(groupedProducts).map((category) => (
+                <Fragment key={category}>
+                  {/* Fila de Categoría */}
+                  <tr className="bg-blue-50">
+                    <td colSpan="4" className="px-4 py-2 font-bold text-blue-700 text-xs uppercase tracking-wider">
+                      {category}
+                    </td>
+                  </tr>
+
+                  {groupedProducts[category].map((product) => {
+                    const unitQty = cart[product.id]?.unit || 0;
+                    const packQty = cart[product.id]?.pack || 0;
+
+                    return (
+                      <Fragment key={product.id}>
+                        <tr className="border-t border-gray-100 ">
+                          <td colSpan={3} className="pl-4 py-1">
+                            {product.name}
+                          </td>
+                        </tr>
+
+                        <tr className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
+                          <td className="p-1 text-center text-gray-600 font-mono text-sm">${product.unitPrice}</td>
+                          <td className="p-4 text-center text-gray-400 text-xs">Unidad</td>
+                          
+                          <td className="p-4 text-right">
+                            <div className="flex items-center justify-center mx-auto w-26 h-10 rounded bg-white shadow-md overflow-hidden border border-gray-300">
+                              <button
+                                onClick={() => updateQuantity(product.id, "unit", "decrease")}
+                                disabled={unitQty === 0}
+                                className={`
+                                  flex-1 py-2 font-black text-lg transition-all
+                                  ${unitQty === 0 
+                                    ? 'text-blue-500 opacity-50 cursor-not-allowed' 
+                                    : 'text-blue-500 hover:bg-blue-50 active:scale-95'}
+                                `}
+                              >
+                                –
+                              </button>
+
+                              <span className="flex-1 text-center font-semibold text-sm">
+                                {unitQty}
+                              </span>
+
+                              <button
+                                onClick={() => updateQuantity(product.id, "unit", "increase")}
+                                className="flex-1 py-2 font-black text-lg text-blue-500 hover:bg-blue-50 active:scale-95 transition-all"
+                              >
+                                +
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                        
+
+                        {/* FILA 2: Controles PACK */}
+                        <tr className="hover:bg-gray-50 transition-colors border-b border-gray-50">
+                          <td className="p-4 text-center text-gray-600 font-mono text-sm">${product.packPrice}</td>
+                          <td className="p-4 text-center text-gray-400 font-mono text-xs">{product.unitsPerPack} u.</td>
+                          
+                          <td className="p-4 text-right">
+                            <div className="flex items-center justify-center mx-auto w-26 h-10 rounded bg-white shadow-md overflow-hidden border border-gray-300">
+                              <button
+                                onClick={() => updateQuantity(product.id, "pack", "decrease")}
+                                disabled={packQty === 0}
+                                className={`
+                                  flex-1 py-2 font-black text-lg transition-all
+                                  ${unitQty === 0 
+                                    ? 'text-blue-500 opacity-50 cursor-not-allowed' 
+                                    : 'text-blue-500 hover:bg-blue-50 active:scale-95'}
+                                `}
+                              >-</button>
+                              <span className="flex-1 text-center font-semibold text-sm">{packQty}</span>
+                              <button
+                                onClick={() => updateQuantity(product.id, "pack", "increase")}
+                                className="flex-1 py-2 font-black text-lg text-blue-500 hover:bg-blue-50 active:scale-95 transition-all"
+                              >+</button>
+                            </div>
+                          </td>
+                        </tr>
+                      </Fragment>
+                    );
+                  })}
+                </Fragment>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4" className="p-10 text-center text-gray-400">
+                  No se encontraron productos que coincidan con tu búsqueda.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+
+
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex justify-center items-center gap-2 mt-8">
-          <button
-            onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-            disabled={currentPage === 1}
-            className="px-4 py-2 border rounded-lg disabled:opacity-30 hover:bg-gray-50 transition-all font-medium text-sm"
-          >
-            Anterior
-          </button>
+        <div className="flex justify-center items-center mt-14 w-full">
+          <nav className="flex items-center gap-1 bg-white p-1.5 rounded border border-slate-200/60 shadow-sm transition-all hover:shadow-md">
+            
+            {/* Botón Anterior */}
+            <button
+              onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+              disabled={currentPage === 1}
+              className="flex items-center justify-center w-10 h-10 rounded text-slate-500 transition-all hover:bg-slate-50 hover:text-slate-900 disabled:opacity-20 disabled:hover:bg-transparent cursor-pointer active:scale-95"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
 
-          <div className="flex gap-1">
-            {Array.from({ length: totalPages }, (_, i) => i + 1)
-              .filter((page) => {
-                // Definimos el rango: 2 a la izquierda y 2 a la derecha
-                const start = Math.max(1, currentPage - 2);
-                const end = Math.min(totalPages, currentPage + 2);
-                
-                // Ajuste para que siempre muestre 5 si es posible al principio o al final
-                if (currentPage <= 3) return page <= 5;
-                if (currentPage >= totalPages - 2) return page >= totalPages - 4;
+            {/* Divisor Sutil */}
+            <div className="w-[1px] h-6 bg-slate-200 mx-1" />
 
-                return page >= start && page <= end;
-              })
-              .map((page) => (
-                <button
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
-                  className={`w-10 h-10 rounded-lg border font-semibold text-sm transition-all ${
-                    currentPage === page
-                      ? "bg-blue-600 text-white border-blue-600 shadow-md"
-                      : "bg-white text-gray-600 hover:bg-gray-50 shadow-sm"
-                  }`}
-                >
-                  {page}
-                </button>
-              ))}
-          </div>
+            {/* Números */}
+            <div className="flex items-center gap-1">
+              {Array.from({ length: totalPages }, (_, i) => i + 1)
+                .filter((page) => {
+                  const range = window.innerWidth < 640 ? 1 : 2;
+                  const start = Math.max(1, currentPage - range);
+                  const end = Math.min(totalPages, currentPage + range);
+                  if (currentPage <= range + 1) return page <= (range * 2 + 1);
+                  if (currentPage >= totalPages - range) return page >= totalPages - (range * 2);
+                  return page >= start && page <= end;
+                })
+                .map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`relative w-10 h-10 rounded text-[13px] font-bold transition-all duration-200 flex items-center justify-center ${
+                      currentPage === page
+                        ? "bg-blue-500 text-white"
+                        : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+                    }`}
+                  >
+                    {page}
+                    {currentPage === page && (
+                      <span className="absolute -bottom-1 w-1 h-1 bg-white rounded" />
+                    )}
+                  </button>
+                ))}
+            </div>
 
-          <button
-            onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
-            disabled={currentPage === totalPages}
-            className="px-4 py-2 border rounded-lg disabled:opacity-30 hover:bg-gray-50 transition-all font-medium text-sm"
-          >
-            Siguiente
-          </button>
+            {/* Divisor Sutil */}
+            <div className="w-[1px] h-6 bg-slate-200 mx-1" />
+
+            {/* Botón Siguiente */}
+            <button
+              onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              className="flex items-center justify-center w-10 h-10 rounded text-slate-500 transition-all hover:bg-slate-50 hover:text-slate-900 disabled:opacity-20 disabled:hover:bg-transparent cursor-pointer active:scale-95"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+
+          </nav>
         </div>
       )}
     </div>
