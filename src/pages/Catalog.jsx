@@ -1,6 +1,7 @@
 import { Fragment, useState, useMemo } from "react";
 import products from "../data/products";
 import { CiSearch } from "react-icons/ci";
+import CustomSelect from "../components/CustomSelect";
 
 function Catalog({ cart = {}, setCart }) {
   const [search, setSearch] = useState("");
@@ -53,14 +54,18 @@ function Catalog({ cart = {}, setCart }) {
     return acc;
   }, {});
 
+  // CustomSelect
+  const categoryOptions = categories.map((cat, index) => ({ id: index, name: cat }));
+
   return (
     <div className="p-6 max-w-6xl mx-auto">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">Nuestro Catálogo</h2>
+      <h2 className="text-3xl font-bold mb-2 text-gray-800">Nuestro Catálogo</h2>
+      <p className="text-[13px] text-green-600 font-bold mb-6 bg-green-50 px-2 py-0.5 rounded mt-1 inline-block">¡Ahorrá comprando en Packs!</p>
 
       {/* Buscador y Filtros */}
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <div className="relative flex-1">
-          <CiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
+          <CiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-900 text-xl" />
           <input
             id="search-input"
             type="text"
@@ -70,22 +75,19 @@ function Catalog({ cart = {}, setCart }) {
               setSearch(e.target.value);
               setCurrentPage(1);         
             }}
-            className="w-full border border-gray-300 p-2 pl-10 rounded focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+            className="w-full h-11 border border-gray-300 p-2 pl-10 rounded focus:ring-2 focus:ring-blue-500 outline-none transition-all"
           />
         </div>
 
-        <select
-          value={categoryFilter}
-          onChange={(e) => {
-            setCategoryFilter(e.target.value); // Cambia la categoría
-            setCurrentPage(1);                 // Resetea la página 
+        <CustomSelect 
+          options={categoryOptions} 
+          value={categoryFilter} 
+          placeholder="Filtrar por categoría"
+          onChange={(newValue) => {
+            setCategoryFilter(newValue); // Actualiza el filtro
+            setCurrentPage(1);           // Resetea la página
           }}
-          className="border border-gray-300 p-2 rounded bg-white outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {categories.map((cat) => (
-            <option key={cat} value={cat}>{cat}</option>
-          ))}
-        </select>
+        />
       </div>
 
 
@@ -129,7 +131,7 @@ function Catalog({ cart = {}, setCart }) {
                               className={`
                                 flex-1 py-2 font-black text-lg transition-all
                                 ${unitQty === 0 
-                                  ? 'text-blue-500 opacity-50 cursor-not-allowed' 
+                                  ? 'text-blue-500 opacity-50' 
                                   : 'text-blue-500 hover:bg-blue-50 active:scale-95'}
                               `}
                             >
@@ -163,7 +165,7 @@ function Catalog({ cart = {}, setCart }) {
                               className={`
                                 flex-1 py-2 font-black text-lg transition-all
                                 ${unitQty === 0 
-                                  ? 'text-blue-500 opacity-50 cursor-not-allowed' 
+                                  ? 'text-blue-500 opacity-50' 
                                   : 'text-blue-500 hover:bg-blue-50 active:scale-95'}
                               `}
                             >-</button>
@@ -230,7 +232,7 @@ function Catalog({ cart = {}, setCart }) {
                                 className={`
                                   flex-1 py-2 font-black text-lg transition-all
                                   ${unitQty === 0 
-                                    ? 'text-blue-500 opacity-50 cursor-not-allowed' 
+                                    ? 'text-blue-500 opacity-50' 
                                     : 'text-blue-500 hover:bg-blue-50 active:scale-95'}
                                 `}
                               >
@@ -265,7 +267,7 @@ function Catalog({ cart = {}, setCart }) {
                                 className={`
                                   flex-1 py-2 font-black text-lg transition-all
                                   ${unitQty === 0 
-                                    ? 'text-blue-500 opacity-50 cursor-not-allowed' 
+                                    ? 'text-blue-500 opacity-50' 
                                     : 'text-blue-500 hover:bg-blue-50 active:scale-95'}
                                 `}
                               >-</button>

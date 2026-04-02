@@ -1,4 +1,4 @@
-import { IoCloseOutline, IoTrashOutline, IoAdd, IoRemove } from "react-icons/io5";
+import { IoCloseOutline, IoTrashOutline, IoAdd, IoRemove, IoCartOutline,IoBagHandleOutline } from "react-icons/io5";
 
 const CartDrawer = ({ cart, products, isOpen, setIsCartOpen, setCart }) => {
   const items = Object.entries(cart);
@@ -53,9 +53,12 @@ const CartDrawer = ({ cart, products, isOpen, setIsCartOpen, setCart }) => {
         }`}
       >
         {/* Header con más "aire" */}
-        <div className="px-8 py-7 flex justify-between items-center border-b border-slate-50">
+        <div className="px-8 py-7 flex justify-between items-center border-b border-slate-100">
           <div>
-            <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">Carrito de Compras</h2>
+            <div className="flex">
+              <IoBagHandleOutline className="bold size-4"/>
+              <h3 className="text-sm pl-2">Carrito de Compras</h3>
+            </div>
             <p className="text-[13px] font-medium text-blue-600 bg-blue-50 inline-block px-2 py-0.5 rounded mt-1">
               {items.length} {items.length === 1 ? 'producto' : 'productos'}
             </p>
@@ -72,13 +75,13 @@ const CartDrawer = ({ cart, products, isOpen, setIsCartOpen, setCart }) => {
         <div className="flex-1 px-6 py-4 space-y-6 overflow-y-auto scrollbar-hide">
           {items.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center space-y-3">
-              <div className="text-5xl opacity-20 grayscale">🛒</div>
-              <p className="text-slate-400 font-medium">No hay productos aún</p>
+              <div className="text-5xl opacity-20 grayscale"> <IoBagHandleOutline /> </div>
+              <p className="text-slate-400 font-medium">Tu carrito de compras está vacío</p>
               <button 
                 onClick={() => setIsCartOpen(false)}
                 className="text-sm font-bold text-blue-600 hover:underline"
               >
-                Seguir comprando
+                Agregar productos
               </button>
             </div>
           ) : (
@@ -88,7 +91,7 @@ const CartDrawer = ({ cart, products, isOpen, setIsCartOpen, setCart }) => {
               const subtotal = item.unit * product.unitPrice + item.pack * product.packPrice * product.unitsPerPack;
 
               return (
-                <div key={id} className="group relative flex flex-col gap-3 pb-6 border-b border-slate-50 last:border-0">
+                <div key={id} className="group relative flex flex-col gap-3 pb-6 border-b border-slate-200 last:border-0">
                   <div className="flex justify-between items-start">
                     <div className="flex-1 pr-4">
                       <h3 className="font-bold text-slate-800 text-[15px] leading-snug group-hover:text-blue-600 transition-colors">

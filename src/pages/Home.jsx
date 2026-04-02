@@ -16,6 +16,7 @@ const Home = ({ cart, setCart }) => {
       <section id="wholesale" className="py-20 bg-white">
         <Wholesale />
       </section>
+
     </div>
   )
 }

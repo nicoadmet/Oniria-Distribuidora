@@ -79,7 +79,7 @@ const NavBar = ({ cart, setIsCartOpen }) => {
                 <IoCartOutline />
 
                 {totalItems > 0 && (
-                    <span className="absolute -top-2 -right-2 flex items-center justify-center h-5 min-w-[20px] bg-red-600 text-white text-[11px] font-bold px-1 rounded-md shadow-md">
+                    <span className="absolute -top-2 -right-2 flex items-center justify-center h-5 min-w-[20px] bg-blue-500 text-white text-[11px] font-bold px-1 rounded-md shadow-md">
                     {totalItems}
                     </span>
                 )}
