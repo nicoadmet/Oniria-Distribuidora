@@ -57,7 +57,7 @@ const NavBar = ({ cart, setIsCartOpen }) => {
                   className="inline-block py-1 px-3 font-semibold"
                 >
                   {item.title}
-                  <span className="absolute bottom-0 left-0 w-0 h-[3px] bg-blue-500 transition-all duration-300 group-hover:w-full"></span>                
+                  <span className="absolute bottom-0 left-0 w-0 h-[3px] bg-blue-600 transition-all duration-300 group-hover:w-full"></span>                
                 </ScrollLink>
               </li>
             ))}
@@ -69,17 +69,17 @@ const NavBar = ({ cart, setIsCartOpen }) => {
           >
             <button 
               onClick={handleSearchClick}
-              className="text-2xl p-2 hover:bg-blue-500 hover:text-white rounded-full transition-all duration-300 cursor-pointer">
+              className="text-2xl p-2 hover:bg-blue-600 hover:text-white rounded-full transition-all duration-300 cursor-pointer">
               <CiSearch />
             </button>
 
             <button
                 onClick={() => setIsCartOpen(true)}
-                className="relative text-2xl p-2 hover:bg-blue-500 hover:text-white rounded-full transition-all duration-300 cursor-pointer">
+                className="relative text-2xl p-2 hover:bg-blue-600 hover:text-white rounded-full transition-all duration-300 cursor-pointer">
                 <IoCartOutline />
 
                 {totalItems > 0 && (
-                    <span className="absolute -top-2 -right-2 flex items-center justify-center h-5 min-w-[20px] bg-blue-500 text-white text-[11px] font-bold px-1 rounded-md shadow-md">
+                    <span className="absolute -top-2 -right-2 flex items-center justify-center h-5 min-w-[20px] bg-blue-600 text-white text-[11px] font-bold px-1 rounded-md shadow-md">
                     {totalItems}
                     </span>
                 )}

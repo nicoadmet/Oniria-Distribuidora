@@ -75,7 +75,7 @@ function Catalog({ cart = {}, setCart }) {
               setSearch(e.target.value);
               setCurrentPage(1);         
             }}
-            className="w-full h-11 border border-gray-300 p-2 pl-10 rounded focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+            className="w-full h-11 border border-gray-300 p-2 pl-10 rounded focus:ring-2 focus:ring-blue-600 outline-none transition-all"
           />
         </div>
 
@@ -131,8 +131,8 @@ function Catalog({ cart = {}, setCart }) {
                               className={`
                                 flex-1 py-2 font-black text-lg transition-all
                                 ${unitQty === 0 
-                                  ? 'text-blue-500 opacity-50' 
-                                  : 'text-blue-500 hover:bg-blue-50 active:scale-95'}
+                                  ? 'text-blue-600 opacity-50' 
+                                  : 'text-blue-600 hover:bg-blue-50 active:scale-95'}
                               `}
                             >
                               –
@@ -144,7 +144,7 @@ function Catalog({ cart = {}, setCart }) {
 
                             <button
                               onClick={() => updateQuantity(product.id, "unit", "increase")}
-                              className="flex-1 py-2 font-black text-lg text-blue-500 hover:bg-blue-50 active:scale-95 transition-all"
+                              className="flex-1 py-2 font-black text-lg text-blue-600 hover:bg-blue-50 active:scale-95 transition-all"
                             >
                               +
                             </button>
@@ -165,14 +165,14 @@ function Catalog({ cart = {}, setCart }) {
                               className={`
                                 flex-1 py-2 font-black text-lg transition-all
                                 ${unitQty === 0 
-                                  ? 'text-blue-500 opacity-50' 
-                                  : 'text-blue-500 hover:bg-blue-50 active:scale-95'}
+                                  ? 'text-blue-600 opacity-50' 
+                                  : 'text-blue-600 hover:bg-blue-50 active:scale-95'}
                               `}
                             >-</button>
                             <span className="flex-1 text-center font-semibold text-sm">{packQty}</span>
                             <button
                               onClick={() => updateQuantity(product.id, "pack", "increase")}
-                              className="flex-1 py-2 font-black text-lg text-blue-500 hover:bg-blue-50 active:scale-95 transition-all"
+                              className="flex-1 py-2 font-black text-lg text-blue-600 hover:bg-blue-50 active:scale-95 transition-all"
                             >+</button>
                           </div>
                         </td>
@@ -232,8 +232,8 @@ function Catalog({ cart = {}, setCart }) {
                                 className={`
                                   flex-1 py-2 font-black text-lg transition-all
                                   ${unitQty === 0 
-                                    ? 'text-blue-500 opacity-50' 
-                                    : 'text-blue-500 hover:bg-blue-50 active:scale-95'}
+                                    ? 'text-blue-600 opacity-50' 
+                                    : 'text-blue-600 hover:bg-blue-50 active:scale-95'}
                                 `}
                               >
                                 –
@@ -245,7 +245,7 @@ function Catalog({ cart = {}, setCart }) {
 
                               <button
                                 onClick={() => updateQuantity(product.id, "unit", "increase")}
-                                className="flex-1 py-2 font-black text-lg text-blue-500 hover:bg-blue-50 active:scale-95 transition-all"
+                                className="flex-1 py-2 font-black text-lg text-blue-600 hover:bg-blue-50 active:scale-95 transition-all"
                               >
                                 +
                               </button>
@@ -267,14 +267,14 @@ function Catalog({ cart = {}, setCart }) {
                                 className={`
                                   flex-1 py-2 font-black text-lg transition-all
                                   ${unitQty === 0 
-                                    ? 'text-blue-500 opacity-50' 
-                                    : 'text-blue-500 hover:bg-blue-50 active:scale-95'}
+                                    ? 'text-blue-600 opacity-50' 
+                                    : 'text-blue-600 hover:bg-blue-50 active:scale-95'}
                                 `}
                               >-</button>
                               <span className="flex-1 text-center font-semibold text-sm">{packQty}</span>
                               <button
                                 onClick={() => updateQuantity(product.id, "pack", "increase")}
-                                className="flex-1 py-2 font-black text-lg text-blue-500 hover:bg-blue-50 active:scale-95 transition-all"
+                                className="flex-1 py-2 font-black text-lg text-blue-600 hover:bg-blue-50 active:scale-95 transition-all"
                               >+</button>
                             </div>
                           </td>
@@ -330,7 +330,7 @@ function Catalog({ cart = {}, setCart }) {
                     onClick={() => setCurrentPage(page)}
                     className={`relative w-10 h-10 rounded text-[13px] font-bold transition-all duration-200 flex items-center justify-center ${
                       currentPage === page
-                        ? "bg-blue-500 text-white"
+                        ? "bg-blue-600 text-white"
                         : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
                     }`}
                   >

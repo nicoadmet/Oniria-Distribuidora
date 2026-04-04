@@ -20,14 +20,14 @@ export default function CustomSelect({ options, value, onChange, placeholder = "
   const selectedOption = options.find(opt => opt.id === value || opt.name === value);
 
   return (
-    <div className="relative md:w-72 font-sans" ref={dropdownRef}>
+    <div className="relative md:w-72 font-sans bg-stone-50" ref={dropdownRef}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          flex w-full h-11 items-center justify-between rounded border bg-white px-4  
+          flex w-full h-11 items-center justify-between rounded border px-4  
           text-left shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 
-          ${isOpen ? 'border-blue-500 ring-blue-500' : 'border-gray-300'}
+          ${isOpen ? 'border-blue-600 ring-blue-600' : 'border-gray-300'}
         `}
       >
         <span className={`block truncate ${!selectedOption ? 'text-gray-400' : 'text-gray-900 font-medium'}`}>
@@ -42,7 +42,7 @@ export default function CustomSelect({ options, value, onChange, placeholder = "
             <li
               key={option.id || option.name}
               onClick={() => {
-                onChange(option.name); // <--- Aquí notificamos al padre
+                onChange(option.name); 
                 setIsOpen(false);
               }}
               className={`

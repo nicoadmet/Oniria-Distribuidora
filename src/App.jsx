@@ -11,6 +11,7 @@ import CartDrawer from "./components/CartDrawer";
 import Footer from "./components/Footer";
 
 import products from "./data/products"
+import WhatsappButton from "./components/WhatsappButton";
 
 const App = () => {
   const [cart, setCart] = useState({});
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/" element={<Home cart={cart} setCart={setCart} />} />        
       </Routes>
 
+      < WhatsappButton />
       <Footer />
     </BrowserRouter>
   );

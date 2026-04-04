@@ -47,7 +47,7 @@ const Footer = () => {
 
           {/* Section 3: Social Media */}
           <div className="flex flex-col items-center md:items-end space-y-6">
-            <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-blue-500">Síguenos</h3>
+            <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-blue-500">Contacto</h3>
             <div className="flex items-center space-x-4">
               <a 
                 href="#" 

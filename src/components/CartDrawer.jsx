@@ -116,9 +116,9 @@ const CartDrawer = ({ cart, products, isOpen, setIsCartOpen, setCart }) => {
                         <p className="text-[15px] font-bold text-slate-700">${product.unitPrice}</p>
                       </div>
                       <div className="flex items-center bg-white rounded shadow-sm border border-slate-100">
-                        <button onClick={() => updateQuantity(id, "unit", "decrease")} className="w-8 h-8 flex items-center justify-center text-blue-500 hover:bg-blue-50 font-bold">-</button>
+                        <button onClick={() => updateQuantity(id, "unit", "decrease")} className="w-8 h-8 flex items-center justify-center text-blue-600 hover:bg-blue-50 font-bold">-</button>
                         <span className="w-6 text-center text-xs font-black text-slate-900">{item.unit}</span>
-                        <button onClick={() => updateQuantity(id, "unit", "increase")} className="w-8 h-8 flex items-center justify-center text-blue-500 hover:bg-blue-50 font-bold">+</button>
+                        <button onClick={() => updateQuantity(id, "unit", "increase")} className="w-8 h-8 flex items-center justify-center text-blue-600 hover:bg-blue-50 font-bold">+</button>
                       </div>
                     </div>
 
@@ -129,9 +129,9 @@ const CartDrawer = ({ cart, products, isOpen, setIsCartOpen, setCart }) => {
                         <p className="text-[15px] font-bold text-blue-700">${product.packPrice}</p>
                       </div>
                       <div className="flex items-center bg-white rounded shadow-sm border border-blue-100">
-                        <button onClick={() => updateQuantity(id, "pack", "decrease")} className="w-8 h-8 flex items-center justify-center text-blue-500 hover:bg-blue-50 font-bold">-</button>
+                        <button onClick={() => updateQuantity(id, "pack", "decrease")} className="w-8 h-8 flex items-center justify-center text-blue-600 hover:bg-blue-50 font-bold">-</button>
                         <span className="w-6 text-center text-xs font-black text-blue-900">{item.pack}</span>
-                        <button onClick={() => updateQuantity(id, "pack", "increase")} className="w-8 h-8 flex items-center justify-center text-blue-500 hover:bg-blue-50 font-bold">+</button>
+                        <button onClick={() => updateQuantity(id, "pack", "increase")} className="w-8 h-8 flex items-center justify-center text-blue-600 hover:bg-blue-50 font-bold">+</button>
                       </div>
                     </div>
                   </div>
@@ -160,7 +160,7 @@ const CartDrawer = ({ cart, products, isOpen, setIsCartOpen, setCart }) => {
           </div>
           
           <div className="space-y-3">
-            <button className="group relative w-full bg-slate-900 hover:bg-green-500 text-white py-4 rounded font-bold transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden">
+            <button className="group relative w-full bg-emerald-500 hover:bg-green-500 text-white py-4 rounded font-bold transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden">
               <span className="relative z-10">Finalizar pedido por Whatsapp</span>
               
             </button>

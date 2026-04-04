@@ -5,17 +5,17 @@ import Wholesale from "./wholesale";
 const Home = ({ cart, setCart }) => {
   return (
     <div className="flex flex-col">
-      <section id="catalog" className="py-10 bg-white">
+      <section id="catalog" className="py-10 bg-stone-50">
         <Catalog cart={cart} setCart={setCart} />
       </section>
-
-      <section id="events" className="py-20 bg-slate-50">
+      
+      <section id="events" className="py-20 bg-stone-50">
         <Events />
       </section>
 
-      <section id="wholesale" className="py-20 bg-white">
+      {/* <section id="wholesale" className="py-20 bg-stone-50">
         <Wholesale />
-      </section>
+      </section> */}
 
     </div>
   )
