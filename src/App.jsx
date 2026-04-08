@@ -2,9 +2,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState } from "react";
 
 import Home from "./pages/Home";
-import Catalog from "./pages/Catalog";
-import Events from "./pages/Events";
-import Wholesale from "./pages/wholesale";
 
 import NavBar from "./components/NavBar";
 import CartDrawer from "./components/CartDrawer";

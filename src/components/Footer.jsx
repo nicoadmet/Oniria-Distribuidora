@@ -1,7 +1,7 @@
-import logo from '../assets/logo-full-zoom.png';
-import { FaInstagram, FaFacebook } from "react-icons/fa";
+import React from 'react';
+import { FaInstagram, FaFacebook, FaWhatsapp  } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
-import { IoMdTime } from "react-icons/io";
+import { IoMdTime, IoIosMail } from "react-icons/io";
 
 
 
@@ -9,60 +9,53 @@ import { IoMdTime } from "react-icons/io";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
+  const socialLinks = [
+    { id: 1, icon: <FaInstagram size={18} />, label: "Instagram", href: "#" },
+    { id: 2, icon: <FaWhatsapp size={18} />, label: "WhatsApp", href: "#" },
+    { id: 3, icon: <FaFacebook size={18} />, label: "Facebook", href: "#" },
+    { id: 4, icon: <IoIosMail size={20} />, label: "Email", href: "mailto:contacto@tuempresa.com" },
+  ];
+
   return (
     <footer className="w-full bg-white text-gray-900 border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-6 py-6 md:py-8">
         
         {/* Main Layout Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8 items-start">
           
-          {/* Section 1: Brand / Logo */}
-          <div className="flex flex-col items-center md:items-start space-y-4 text-center md:text-left">
-            <div className="flex items-center space-x-2">
-              <img 
-                src={logo} 
-                alt="Oniria Distribuidora Logo" 
-                className="h-15 grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer"
-              />
+          {/* Social Media */}
+          <div className="flex flex-col items-center space-y-6">
+            <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-blue-500">Contacto</h3>
+            <div className="flex items-center space-x-4">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.id}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-center w-10 h-10 rounded-full border border-gray-100 hover:border-blue-500 hover:bg-blue-500 transition-all duration-300"
+                  aria-label={link.label}
+                >
+                  {React.cloneElement(link.icon, { 
+                    className: "text-gray-600 group-hover:text-white transition-colors" 
+                  })}
+                </a>
+              ))} 
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed max-w-[240px]">
-              Comprometidos en la calidad y atención al cliente.
-            </p>
           </div>
 
-          {/* Section 2: Info / Contact */}
+          {/* Info / Contact */}
           <div className="flex flex-col items-center space-y-6">
             <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-blue-500">Información</h3>
             <div className="space-y-4 text-center">
               <div className="flex items-center justify-center space-x-3 text-gray-600 group">
-                <IoLocationOutline  />
+                <IoLocationOutline />
                 <span className="text-sm font-medium">Rosario, Santa Fe</span>
               </div>
               <div className="flex items-center justify-center space-x-3 text-gray-600 group">
                 <IoMdTime />
                 <span className="text-sm font-medium">Lun a Sáb: 9 a 18hs</span>
               </div>
-            </div>
-          </div>
-
-          {/* Section 3: Social Media */}
-          <div className="flex flex-col items-center md:items-end space-y-6">
-            <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-blue-500">Contacto</h3>
-            <div className="flex items-center space-x-4">
-              <a 
-                href="#" 
-                className="group flex items-center justify-center w-10 h-10 rounded-full border border-gray-100 hover:border-blue-500 hover:bg-blue-500 transition-all duration-300"
-                aria-label="Instagram"
-              >
-                <FaInstagram size={18} className="text-gray-600 group-hover:text-white transition-colors" /> 
-              </a>
-              <a 
-                href="#" 
-                className="group flex items-center justify-center w-10 h-10 rounded-full border border-gray-100 hover:border-blue-500 hover:bg-blue-500 transition-all duration-300"
-                aria-label="Facebook"
-              >
-                <FaFacebook size={18} className="text-gray-600 group-hover:text-white transition-colors" /> 
-              </a>
             </div>
           </div>
 

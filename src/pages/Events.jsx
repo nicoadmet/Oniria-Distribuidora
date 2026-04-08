@@ -1,4 +1,4 @@
-import eventsImg from '../assets/brindis.jpg';
+import eventsImg from '../assets/eventos.jpg';
 import { MessageCircle, ArrowRight } from 'lucide-react'; 
 import { Link as ScrollLink } from 'react-scroll';
 import Reveal from '../components/Reveal';
@@ -23,10 +23,10 @@ const Events = () => {
               Servicio a Consignación
             </div>
 
-            <h1 className="text-4xl md:text-6xl font-serif leading-[1.1] tracking-tight">
+            <h2 className="text-4xl md:text-6xl font-serif leading-[1.1] tracking-tight">
               Tu evento fluye, <br />
               <span className="text-blue-600 italic">tu presupuesto no.</span>
-            </h1>
+            </h2>
 
             <p className="text-lg lg:text-xl text-slate-600 max-w-lg leading-relaxed">
               Comprá las bebidas para tu evento y <strong>devolvé lo que no se consuma. </strong> 
@@ -60,7 +60,7 @@ const Events = () => {
               <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl transform rotate-1 lg:rotate-2 hover:rotate-0 transition-transform duration-500">
                 <img 
                   src={eventsImg} 
-                  alt="Brindis en evento Oniria" 
+                  alt="bebidas a consignación para eventos" 
                   className="w-full h-[400px] lg:h-[600px] object-cover"
                 />
               </div>

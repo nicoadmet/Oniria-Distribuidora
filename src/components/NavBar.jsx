@@ -9,7 +9,7 @@ import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
 import { CiSearch } from "react-icons/ci";
 
 import ResponsiveMenu from "./ResponsiveMenu";
-import Logo from "../assets/logo-full-zoom.png";
+import Logo from "../assets/logo.png";
 
 const NavBar = ({ cart, setIsCartOpen }) => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -42,7 +42,7 @@ const NavBar = ({ cart, setIsCartOpen }) => {
           
           {/* Logo */}
           <Link to="/">
-            <img src={Logo} alt="Oniria" className="w-28" />
+            <img src={Logo} alt="Logo Oniria Distribuidora de Bebidas" className="w-28" />
           </Link>
 
           {/* Menu */}
