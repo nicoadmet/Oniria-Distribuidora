@@ -1,6 +1,5 @@
 import Catalog from "./Catalog";
 import Events from "./Events";
-// import Wholesale from "./wholesale";
 
 const Home = ({ cart, setCart }) => {
   return (
@@ -12,11 +11,6 @@ const Home = ({ cart, setCart }) => {
       <section id="events" className="py-20 bg-stone-50">
         <Events />
       </section>
-
-      {/* <section id="wholesale" className="py-20 bg-stone-50">
-        <Wholesale />
-      </section> */}
-
     </div>
   )
 }
