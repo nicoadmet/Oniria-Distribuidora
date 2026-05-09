@@ -36,9 +36,45 @@ const CartDrawer = ({ cart, products, isOpen, setIsCartOpen, setCart }) => {
     });
   };
 
+  const generateWhatsAppMessage = () => {
+    let message = "*Nuevo Pedido*%0A%0A";
+
+    items.forEach(([id, item]) => {
+      const product = getProduct(id);
+
+      if (!product) return;
+
+      message += `*${product.name}*%0A`;
+
+      if (item.unit > 0) {
+        message += `   Unidad: ${item.unit} x $${product.unitPrice}%0A`;
+      }
+
+      if (item.pack > 0) {
+        message += `   Pack: ${item.pack} x $${product.packPrice}%0A`;
+      }
+
+      message += "%0A";
+    });
+
+    message += `*Total:* $${total}`;
+
+    return message;
+  };
+
+  const sendToWhatsApp = () => {
+    const phone = "5493416753549";
+
+    const message = generateWhatsAppMessage();
+
+    window.open(
+      `https://wa.me/${phone}?text=${message}`,
+      "_blank"
+    );
+  };
+
   return (
     <>
-      {/* Overlay con Blur refinado */}
       <div
         onClick={() => setIsCartOpen(false)}
         className={`fixed inset-0 bg-slate-900/40 backdrop-blur-[2px] z-40 transition-opacity duration-500 ${
@@ -46,13 +82,11 @@ const CartDrawer = ({ cart, products, isOpen, setIsCartOpen, setCart }) => {
         }`}
       />
 
-      {/* Drawer con bordes más suaves */}
       <div
         className={`fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-[0_0_40px_rgba(0,0,0,0.1)] transform transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] z-50 flex flex-col ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        {/* Header con más "aire" */}
         <div className="px-8 py-7 flex justify-between items-center border-b border-slate-100">
           <div>
             <div className="flex">
@@ -71,7 +105,6 @@ const CartDrawer = ({ cart, products, isOpen, setIsCartOpen, setCart }) => {
           </button>
         </div>
 
-        {/* Listado de Items con scroll invisible */}
         <div className="flex-1 px-6 py-4 space-y-6 overflow-y-auto scrollbar-hide">
           {items.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center space-y-3">
@@ -107,7 +140,6 @@ const CartDrawer = ({ cart, products, isOpen, setIsCartOpen, setCart }) => {
                     </button>
                   </div>
 
-                  {/* Controles de Unidades y Pack en paralelo */}
                   <div className="grid grid-cols-2 gap-3">
                     {/* Selector Unidad */}
                     <div className="flex items-center justify-between bg-slate-50 rounded p-1.5 border border-slate-100">
@@ -160,7 +192,9 @@ const CartDrawer = ({ cart, products, isOpen, setIsCartOpen, setCart }) => {
           </div>
           
           <div className="space-y-3">
-            <button className="group relative w-full bg-emerald-500 hover:bg-green-500 text-white py-4 rounded font-bold transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden">
+            <button
+              onClick={sendToWhatsApp}
+              className="group relative w-full bg-emerald-500 hover:bg-green-500 text-white py-4 rounded font-bold transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden">
               <span className="relative z-10">Finalizar pedido por Whatsapp</span>
               
             </button>
